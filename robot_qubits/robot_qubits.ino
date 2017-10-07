@@ -1,27 +1,29 @@
 #include "Shared.h"
 #include "Movement.h"
+#include "Buzzer.h"
 #include "Arm.h"
 #include "LineFollower.h"
+#include "Display.h"
 
 void readBluethooth();
 void handleCommand(int val);
 void setup() {
 
+  Serial.begin(115200);
   //Setup pins
   setupMotor();
   setupArm();
   setupLineFollower();
-  Serial.begin(9600);
-
+  setupDisplay();
+  setupBuzzer();
 }
 
+
 void loop() {
-  if (digitalRead(P_LF_SWITCH) == HIGH) {
-    autoDrive();
-  } else {
-    readBluethooth();
-  }
-  delay(1);
+  
+   readBluethooth();
+  
+  delay(10);
 }
 
 
@@ -87,6 +89,16 @@ void handleCommand(int val) {
 
     case AUTO:    break;
     case MAN:    break;
+    case INC_COUNTER:
+    incDisplay();
+    break;
+    case DEC_COUNTER:
+    decDisplay();
+    break;
+    case BUZZ:
+      playBuzzer();
+      
+      break;
   }
 }
 

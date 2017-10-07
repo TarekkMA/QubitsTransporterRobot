@@ -20,7 +20,7 @@ ArmMotor joints[3];
 ArmMotor gripper;
 
 
-const int delta = 5;
+const int delta = 5 ;
 void setupArm(){
   //attach arm motors
   base.motor.attach(P_ARM_BASE);

@@ -1,7 +1,7 @@
 /** Commands **/
 enum BTCommands {
-  FOW = 'a',
-  BAK = 'b',
+  FOW = 'b',
+  BAK = 'a',
   RIT = 'c',
   LFT = 'd',
 
@@ -21,7 +21,13 @@ enum BTCommands {
   STOP = 'o',
 
   AUTO = 'p',
-  MAN  = 'q'
+  MAN  = 'q',
+
+  BUZZ = 'r',
+
+  INC_COUNTER  = 's',
+  DEC_COUNTER  = 't',
+
 };
 enum Direction      { FORWARD , BACKWARD };
 enum TurnDirection  { RIGHT , LEFT };
@@ -31,28 +37,31 @@ enum GripperCommand { GRAB , RELEASE };
 /** Pins **/
 
 //Motor
-const byte P_MOTOR_R_F = 2,      // Right motor forward
-           P_MOTOR_R_B = 3,      //             backward
-           P_MOTOR_L_F = 4,      // Left motor forward
-           P_MOTOR_L_B = 5;      //             backward
+const byte P_MOTOR_R_F = A0,      // Right motor forward
+           P_MOTOR_R_B = A1,      //             backward
+           P_MOTOR_L_F = A2,      // Left motor forward
+           P_MOTOR_L_B = A3;      //             backward
 
 //Arm Servos
-const byte P_ARM_BASE    = A0,
-           P_ARM_JOINT1  = A1,
-           P_ARM_JOINT2  = A2,
-           P_ARM_JOINT3  = A3,
-           P_ARM_GRIPPER = A4;
+const byte P_ARM_BASE    = 3,
+           P_ARM_JOINT1  = 5,
+           P_ARM_JOINT2  = 6,
+           P_ARM_JOINT3  = 9,
+           P_ARM_GRIPPER = 10;
 
-//Bluetooth Serial
-const byte P_BLUETOOTH_RX = 10,
-           P_BLUETOOTH_TX = 11;
 
-//Automatic Sitch
-const byte P_LF_SWITCH = 5;
+
 
 //Line Follower
-const byte P_LF_L = A0,        //Left sensor
-           P_LF_M = A1,        //Middle sensor
-           P_LF_R = A2;        //Right sensor
+const byte P_LF_L = A4,        //Left sensor
+           P_LF_M = A5,        //Middle sensor
+           P_LF_R = 8;        //Right sensor
 
 
+
+//7 segment
+const byte one = 11,        //one
+           two = 12,        //two
+           four = 13;        //four
+
+const byte P_BUZZER = 7;
