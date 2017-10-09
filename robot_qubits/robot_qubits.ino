@@ -7,6 +7,12 @@
 
 void readBluethooth();
 void handleCommand(int val);
+void changePilotState(bool automatic);
+
+
+//
+bool autoPilotState  = false;
+
 void setup() {
 
   Serial.begin(115200);
@@ -20,17 +26,27 @@ void setup() {
 
 
 void loop() {
-  
-   readBluethooth();
+
+  if(autoPilotState){
+    autoDrive();
+  }
+
+  readBluethooth();
   
   delay(10);
 }
 
 
 void readBluethooth() {
+  
   if (Serial.available() > 0) {
     int val = Serial.read();
-    handleCommand(val);
+
+    if(autoPilotState && val == MAN){
+      changePilotState(false);
+    }else{
+      handleCommand(val);
+    }
   }
 }
 
@@ -49,31 +65,17 @@ void handleCommand(int val) {
     case LFT:
       turnRobot(LEFT);
       break;
-
-    case A_B_L:
-      moveArmBase(LEFT);
-      break;
-    case A_B_R:
-      moveArmBase(RIGHT);
-      break;
-
     case A_J1_E:
-      moveArmJoint(1, EXTEND);
+      moveArmJoint(0, EXTEND);
       break;
     case A_J1_C:
-      moveArmJoint(1, COLLAPSE);
+      moveArmJoint(0, COLLAPSE);
       break;
     case A_J2_E:
-      moveArmJoint(2, EXTEND);
+      moveArmJoint(1, EXTEND);
       break;
     case A_J2_C:
-      moveArmJoint(2, COLLAPSE);
-      break;
-    case A_J3_E:
-      moveArmJoint(3, EXTEND);
-      break;
-    case A_J3_C:
-      moveArmJoint(3, COLLAPSE);
+      moveArmJoint(1, COLLAPSE);
       break;
 
     case A_G_G:
@@ -85,20 +87,31 @@ void handleCommand(int val) {
 
     case STOP:
       stopAll();
+      stopGripper();
       break;
 
-    case AUTO:    break;
-    case MAN:    break;
+    case AUTO:
+      changePilotState(true);
+      break;
+    case MAN:
+      changePilotState(false);
+      break;
     case INC_COUNTER:
-    incDisplay();
-    break;
+      incDisplay();
+      break;
     case DEC_COUNTER:
-    decDisplay();
-    break;
+      decDisplay();
+      break;
     case BUZZ:
       playBuzzer();
       
       break;
   }
 }
+
+void changePilotState(bool automatic){
+  autoPilotState = automatic;
+}
+
+
 

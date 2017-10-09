@@ -2,39 +2,37 @@
 
 struct ArmMotor{
   Servo motor;
-  int val = 0;
+  int val = 20;
   void writeVal(){
-    /*if(val>180){
+    if(val>180){
       val = 180;
     }
-    if(val<0){
-      val=0;
-    }*/
+    if(val<20){
+      val=20;
+    }
     motor.write(val);                                                      
   }
 };
 
 
 ArmMotor base;
-ArmMotor joints[3];
-ArmMotor gripper;
+ArmMotor joints[2];
 
 
 const int delta = 5 ;
 void setupArm(){
   //attach arm motors
-  base.motor.attach(P_ARM_BASE);
   joints[0].motor.attach(P_ARM_JOINT1);
   joints[1].motor.attach(P_ARM_JOINT2);
-  joints[2].motor.attach(P_ARM_JOINT3);
-  gripper.motor.attach(P_ARM_GRIPPER);
 
-  // reset to inital val
-  base.writeVal();
+  //setup gripper
+  pinMode(P_ARM_G_GRAB, OUTPUT);
+  pinMode(P_ARM_G_RELESE, OUTPUT);
+
   joints[0].writeVal();
+  joints[1].val = 100;
   joints[1].writeVal();
-  joints[2].writeVal();
-  gripper.writeVal();
+  
 }
 
 void armLoop(){
@@ -42,12 +40,7 @@ void armLoop(){
 }
 
 void moveArmBase(TurnDirection dir){
-  if(dir == LEFT){
-    base.val-=delta;
-  }else if(dir == RIGHT){
-    base.val+=delta;
-  }
-  base.writeVal(); 
+  
 }
 
 void moveArmJoint(byte jointNum,JointCommand cmd){
@@ -61,10 +54,17 @@ void moveArmJoint(byte jointNum,JointCommand cmd){
 
 void moveArmGripper(GripperCommand cmd){
   if(cmd == GRAB){
-    gripper.val+=delta;
+    digitalWrite(P_ARM_G_GRAB, HIGH);
+    digitalWrite(P_ARM_G_RELESE, LOW);
   }else if(cmd == RELEASE){
-    gripper.val-=delta;
+    digitalWrite(P_ARM_G_GRAB, LOW);
+    digitalWrite(P_ARM_G_RELESE, HIGH);
+    
   }
-  gripper.writeVal();
+}
+
+void stopGripper(){
+   digitalWrite(P_ARM_G_GRAB, LOW);
+   digitalWrite(P_ARM_G_RELESE, LOW);
 }
 

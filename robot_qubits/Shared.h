@@ -43,11 +43,11 @@ const byte P_MOTOR_R_F = A0,      // Right motor forward
            P_MOTOR_L_B = A3;      //             backward
 
 //Arm Servos
-const byte P_ARM_BASE    = 3,
-           P_ARM_JOINT1  = 5,
-           P_ARM_JOINT2  = 6,
-           P_ARM_JOINT3  = 9,
-           P_ARM_GRIPPER = 10;
+const byte P_ARM_JOINT1  = 3,
+           P_ARM_JOINT2  = 5,
+           P_ARM_G_GRAB  = 6,
+           P_ARM_G_RELESE= 9;
+           
 
 
 
