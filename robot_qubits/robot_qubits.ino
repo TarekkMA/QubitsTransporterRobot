@@ -7,7 +7,6 @@
 
 void readBluethooth();
 void handleCommand(int val);
-void changePilotState(bool automatic);
 
 
 //
@@ -43,7 +42,7 @@ void readBluethooth() {
     int val = Serial.read();
 
     if(autoPilotState && val == MAN){
-      changePilotState(false);
+      autoPilotState = false;
     }else{
       handleCommand(val);
     }
@@ -66,16 +65,16 @@ void handleCommand(int val) {
       turnRobot(LEFT);
       break;
     case A_J1_E:
-      moveArmJoint(0, EXTEND);
+      moveArmJoint1(EXTEND);
       break;
     case A_J1_C:
-      moveArmJoint(0, COLLAPSE);
+      moveArmJoint1(COLLAPSE);
       break;
     case A_J2_E:
-      moveArmJoint(1, EXTEND);
+      moveArmJoint2(EXTEND);
       break;
     case A_J2_C:
-      moveArmJoint(1, COLLAPSE);
+      moveArmJoint2(COLLAPSE);
       break;
 
     case A_G_G:
@@ -91,10 +90,10 @@ void handleCommand(int val) {
       break;
 
     case AUTO:
-      changePilotState(true);
+      autoPilotState = true;
       break;
     case MAN:
-      changePilotState(false);
+      autoPilotState = false;
       break;
     case INC_COUNTER:
       incDisplay();
@@ -109,9 +108,6 @@ void handleCommand(int val) {
   }
 }
 
-void changePilotState(bool automatic){
-  autoPilotState = automatic;
-}
 
 
 

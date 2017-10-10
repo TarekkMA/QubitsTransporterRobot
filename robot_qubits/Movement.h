@@ -26,14 +26,23 @@ void turnRobot(TurnDirection dir) {
     digitalWrite(P_MOTOR_L_F, HIGH);
     digitalWrite(P_MOTOR_L_B, LOW);
 
-  } else if (dir == RIGHT) {
+  } else if (dir == RIGHT_R) {
 
     // turn to the right by sending opposite signals to each motor
     digitalWrite(P_MOTOR_R_F, HIGH);
     digitalWrite(P_MOTOR_R_B, LOW);
     
     digitalWrite(P_MOTOR_L_F, LOW);
-    digitalWrite(P_MOTOR_L_B, HIGH);
+    digitalWrite(P_MOTOR_L_B, LOW);
+
+  } else if (dir == LEFT_R) {
+
+    // turn to the right by sending opposite signals to each motor
+    digitalWrite(P_MOTOR_R_F, HIGH);
+    digitalWrite(P_MOTOR_R_B, LOW);
+    
+    digitalWrite(P_MOTOR_L_F, LOW);
+    digitalWrite(P_MOTOR_L_B, LOW);
 
   }
 }

@@ -7,31 +7,35 @@ struct ArmMotor{
     if(val>180){
       val = 180;
     }
-    if(val<20){
-      val=20;
+    if(val<15){
+      val=15;
     }
-    motor.write(val);                                                      
+    
+    motor.write(val);                                                   
   }
 };
 
 
-ArmMotor base;
-ArmMotor joints[2];
+ArmMotor joint1;
+ArmMotor joint1_extra;
+ArmMotor joint2;
 
 
 const int delta = 5 ;
 void setupArm(){
   //attach arm motors
-  joints[0].motor.attach(P_ARM_JOINT1);
-  joints[1].motor.attach(P_ARM_JOINT2);
+  joint1.motor.attach(P_ARM_JOINT1);
+  joint1_extra.motor.attach(P_ARM_JOINT1_2);
+  joint2.motor.attach(P_ARM_JOINT2);
 
   //setup gripper
   pinMode(P_ARM_G_GRAB, OUTPUT);
   pinMode(P_ARM_G_RELESE, OUTPUT);
 
-  joints[0].writeVal();
-  joints[1].val = 100;
-  joints[1].writeVal();
+  joint1.writeVal();
+  joint1_extra.writeVal();
+  joint2.val = 150;
+  joint2.writeVal();
   
 }
 
@@ -43,13 +47,22 @@ void moveArmBase(TurnDirection dir){
   
 }
 
-void moveArmJoint(byte jointNum,JointCommand cmd){
+void moveArmJoint1(JointCommand cmd){
   if(cmd == EXTEND){
-    joints[jointNum].val-=delta;
+    joint1.val+=delta;
   }else if(cmd == COLLAPSE){
-    joints[jointNum].val+=delta;
+    joint1.val-=delta;
   }
-  joints[jointNum].writeVal();
+  joint1.writeVal();
+}
+
+void moveArmJoint2(JointCommand cmd){
+   if(cmd == EXTEND){
+    joint2.val+=delta;
+  }else if(cmd == COLLAPSE){
+    joint2.val-=delta;
+  }
+  joint2.writeVal();
 }
 
 void moveArmGripper(GripperCommand cmd){

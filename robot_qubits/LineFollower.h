@@ -1,7 +1,7 @@
 void setupLineFollower(){
-  pinMode(P_LF_L,OUTPUT);
-  pinMode(P_LF_M,OUTPUT);
-  pinMode(P_LF_R,OUTPUT);
+  pinMode(P_LF_L,INPUT);
+  pinMode(P_LF_M,INPUT);
+  pinMode(P_LF_R,INPUT);
 }
 
 //vars used in linefollwer
@@ -21,27 +21,46 @@ void autoDrive(){
   middle = digitalRead(P_LF_M) == HIGH;
   right = digitalRead(P_LF_R) == HIGH;
 
-  
+
+  /*
   if       (left && !middle && !right){
-    Serial.println("RIGHT");
-    turnRobot(RIGHT);
+    turnRobot(LEFT_R);
+    
   }else if (!left && !middle &&  right){
-    Serial.println("LEFT");
-    turnRobot(LEFT);
+    turnRobot(RIGHT_R);
+
   }else if ( 
-           ( left && !middle &&  right) ||
-           (!left &&  middle &&  right) ||
-           ( left &&  middle && !right) 
+           (!left &&  middle && !right)           
            ){
-    Serial.println("FORWARD");
     moveRobot(FORWARD);
+  }else if((!left &&  middle &&  right)){
+    turnRobot(RIGHT_R);
+  }else if(( left &&  middle && !right) ){
+    turnRobot(LEFT_R);
   }
+  */
+
+
+  if(left && right){
+    stopAll();
+  }else if(left && !right){
+    turnRobot(LEFT_R);
+    delay(50);
+  }else if(!left && right){
+    turnRobot(RIGHT_R);
+    delay(50);
+  }else if(!left && !right){
+    moveRobot(FORWARD);
+    delay(100);
+  }
+
+  
+    stopAll();
+    delay(100);
 
 
   // we need to take it slowly here :D
-  delay(100);
-  stopAll();
-  delay(200);
+  
  
 
 }

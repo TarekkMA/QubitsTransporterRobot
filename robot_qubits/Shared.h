@@ -1,9 +1,9 @@
 /** Commands **/
 enum BTCommands {
-  FOW = 'b',
-  BAK = 'a',
-  RIT = 'c',
-  LFT = 'd',
+  FOW = 'a',
+  BAK = 'b',
+  RIT = 'd',
+  LFT = 'c',
 
   A_B_L = 'e',
   A_B_R = 'f',
@@ -30,20 +30,21 @@ enum BTCommands {
 
 };
 enum Direction      { FORWARD , BACKWARD };
-enum TurnDirection  { RIGHT , LEFT };
+enum TurnDirection  { RIGHT , LEFT ,RIGHT_R,LEFT_R };
 enum JointCommand   { EXTEND , COLLAPSE };
 enum GripperCommand { GRAB , RELEASE };
 
 /** Pins **/
 
 //Motor
-const byte P_MOTOR_R_F = A0,      // Right motor forward
-           P_MOTOR_R_B = A1,      //             backward
-           P_MOTOR_L_F = A2,      // Left motor forward
-           P_MOTOR_L_B = A3;      //             backward
+const byte P_MOTOR_R_F = A1,      // Right motor forward
+           P_MOTOR_R_B = A0,      //             backward
+           P_MOTOR_L_F = A3,      // Left motor forward
+           P_MOTOR_L_B = A2;      //             backward
 
 //Arm Servos
 const byte P_ARM_JOINT1  = 3,
+           P_ARM_JOINT1_2= 10,
            P_ARM_JOINT2  = 5,
            P_ARM_G_GRAB  = 6,
            P_ARM_G_RELESE= 9;
