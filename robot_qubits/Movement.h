@@ -15,7 +15,7 @@ void stopAll() {
 }
 
 void turnRobot(TurnDirection dir) {
-  stopAll();
+  //stopAll();
   delay(50);
   if (dir == LEFT) {
 
@@ -25,6 +25,15 @@ void turnRobot(TurnDirection dir) {
 
     digitalWrite(P_MOTOR_L_F, HIGH);
     digitalWrite(P_MOTOR_L_B, LOW);
+
+  }else if (dir == RIGHT) {
+
+    // turn to the left by sending opposite signals to each motor
+    digitalWrite(P_MOTOR_R_F, HIGH);
+    digitalWrite(P_MOTOR_R_B, LOW);
+
+    digitalWrite(P_MOTOR_L_F, LOW);
+    digitalWrite(P_MOTOR_L_B, HIGH);
 
   } else if (dir == RIGHT_R) {
 
@@ -38,17 +47,17 @@ void turnRobot(TurnDirection dir) {
   } else if (dir == LEFT_R) {
 
     // turn to the right by sending opposite signals to each motor
-    digitalWrite(P_MOTOR_R_F, HIGH);
+    digitalWrite(P_MOTOR_R_F, LOW);
     digitalWrite(P_MOTOR_R_B, LOW);
     
-    digitalWrite(P_MOTOR_L_F, LOW);
+    digitalWrite(P_MOTOR_L_F, HIGH);
     digitalWrite(P_MOTOR_L_B, LOW);
 
   }
 }
 
 void moveRobot(Direction dir) {
-  stopAll();
+  //stopAll();
   delay(50);
   if (dir == FORWARD) {
 

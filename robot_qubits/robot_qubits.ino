@@ -43,6 +43,7 @@ void readBluethooth() {
 
     if(autoPilotState && val == MAN){
       autoPilotState = false;
+      stopAll();
     }else{
       handleCommand(val);
     }

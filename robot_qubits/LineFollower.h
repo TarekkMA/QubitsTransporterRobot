@@ -21,43 +21,50 @@ void autoDrive(){
   middle = digitalRead(P_LF_M) == HIGH;
   right = digitalRead(P_LF_R) == HIGH;
 
+  
+  if       ((left && !middle && !right) || (left && middle && !right)){
+    turnRobot(LEFT);
+    delay(50);
+  }else if ((!left && !middle && right) || (!left && middle && right)){
+    turnRobot(RIGHT);
+    delay(50);
+  }else if ( (!left &&  middle && !right)           ){
+    moveRobot(FORWARD);
+    delay(50);
+  }else if(left && middle && right){
+     stopAll();
+     playBuzzer();
+     delay(500);
+  }
 
   /*
-  if       (left && !middle && !right){
-    turnRobot(LEFT_R);
-    
-  }else if (!left && !middle &&  right){
-    turnRobot(RIGHT_R);
-
-  }else if ( 
-           (!left &&  middle && !right)           
-           ){
-    moveRobot(FORWARD);
-  }else if((!left &&  middle &&  right)){
-    turnRobot(RIGHT_R);
-  }else if(( left &&  middle && !right) ){
-    turnRobot(LEFT_R);
-  }
-  */
-
-
   if(left && right){
     stopAll();
+    playBuzzer();
+    delay(750);
   }else if(left && !right){
-    turnRobot(LEFT_R);
+    turnRobot(RIGHT);
     delay(50);
   }else if(!left && right){
-    turnRobot(RIGHT_R);
+    turnRobot(LEFT);
     delay(50);
   }else if(!left && !right){
     moveRobot(FORWARD);
-    delay(100);
-  }
-
-  
+    delay(50);
+  }else{
     stopAll();
-    delay(100);
+  }
+  */
 
+    if(!left && !middle && !right){
+      playBuzzer();
+      delay(750);
+      playBuzzer();
+      delay(1500);
+    }else{
+     stopAll();
+     delay(75);
+    }
 
   // we need to take it slowly here :D
   
